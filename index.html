@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Quieres ser mi novia?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: url('https://i.pinimg.com/originals/d1/e3/22/d1e322e998e2d5e7266cf9647a3c78db.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #fff;
+      margin-top: 100px;
+      text-shadow: 2px 2px #000;
+    }
+
+    button {
+      padding: 20px 40px;
+      font-size: 1.5em;
+      margin: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+    }
+
+    #message {
+      margin-top: 50px;
+      font-size: 2em;
+      color: #ffccff;
+      display: none;
+      text-shadow: 1px 1px #000;
+    }
+
+    #noMessages {
+      margin-top: 30px;
+      color: white;
+      font-size: 1.2em;
+    }
+
+    .heart {
+      position: fixed;
+      top: -50px;
+      font-size: 2em;
+      animation: float 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Quieres ser mi novia?</h1>
+  <div>
+    <button id="yesBtn">Sí</button>
+    <button id="noBtn">No</button>
+  </div>
+  <div id="message">Me alegra saber que esa sea tu respuesta. ¡Te amo mucho! 💖</div>
+  <div id="noMessages"></div>
+
+  <!-- Reproductor de YouTube -->
+  <div style="margin-top: 30px;">
+    <iframe width="300" height="170"
+      src="https://www.youtube.com/embed/8N-DvRAspzo?rel=0&modestbranding=1"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const message = document.getElementById('message');
+    const noMessages = document.getElementById('noMessages');
+
+    const frasesNo = [
+      "¿Por qué no? 😢",
+      "Estás segura de eso...?",
+      "Piensa bien tu respuesta 🥺",
+      "No me rompas el corazón 💔",
+      "¡Pero si somos el uno para el otro!",
+      "Dímelo en broma, por favor...",
+      "Hasta Stitch está triste 🐾"
+    ];
+
+    function lanzarCorazones() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '💖';
+
+        const size = Math.random() * 40 + 10;
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = size + "px";
+        heart.style.color = ["#ffb6c1", "#dda0dd", "#ff69b4", "#e6a8d7", "#c71585"][Math.floor(Math.random() * 5)];
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 6000);
+      }
+    }
+
+    noBtn.addEventListener('click', () => {
+      // Reducir tamaño del botón "No"
+      let currentFontSize = parseFloat(window.getComputedStyle(noBtn).fontSize);
+      noBtn.style.fontSize = Math.max(10, currentFontSize - 4) + "px";
+
+      // Aumentar tamaño del botón "Sí"
+      let yesSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+      yesBtn.style.fontSize = (yesSize + 4) + "px";
+
+      // Mostrar mensaje aleatorio
+      const randomPhrase = frasesNo[Math.floor(Math.random() * frasesNo.length)];
+      const p = document.createElement('p');
+      p.textContent = randomPhrase;
+      noMessages.appendChild(p);
+    });
+
+    yesBtn.addEventListener('click', () => {
+      message.style.display = 'block';
+      lanzarCorazones();
+    });
+  </script>
+</body>
+</html>
